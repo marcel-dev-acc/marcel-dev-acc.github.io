@@ -11,7 +11,7 @@ let snake = [
     {x: 180, y: 200},
     {x: 170, y: 200},
     {x: 160, y: 200}
-]
+];
 
 let score = 0;
 // True if changing direction
@@ -51,8 +51,15 @@ function ready_game_screen() {
 function reset_game_screen() {
     quit_game = true;
     document.getElementById('score').innerHTML = (0).toString();
+    snake = [
+        {x: 200, y: 200},
+        {x: 190, y: 200},
+        {x: 180, y: 200},
+        {x: 170, y: 200},
+        {x: 160, y: 200}
+    ];
     configure_page();
-    ready_game_screen()
+    ready_game_screen();
 }
 
 function sleep(ms) {
