@@ -2,11 +2,11 @@
 const baseUrl = 'http://127.0.0.1:5500';
 const htmlFolder = '/js-legacy-war/assets/html/';
 
-function main() {
+function loadWelcome() {
     $(document).ready(function(){
-        /* Code Snippets below */
-
         loadHtml(baseUrl+htmlFolder+'welcome.html');
+        /* For development you will want to re-route to relevant html page */
+        loadHtml(baseUrl+htmlFolder+'choose-civilisation.html');
     });
 }
 
@@ -24,4 +24,10 @@ function loadHtml(path) {
 
 function rendHtml(html) {
     $('#root').html(html);
+}
+
+function loadCivilisations() {
+    $(document).ready(function(){
+        loadHtml(baseUrl+htmlFolder+'choose-civilisation.html');
+    });
 }

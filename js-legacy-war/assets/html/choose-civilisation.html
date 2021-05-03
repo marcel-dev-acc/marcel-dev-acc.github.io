@@ -1,0 +1,106 @@
+<style>
+
+    @media only screen and (max-width: 480px) {
+        .civilisation-title {
+            font-size: 3rem;
+            padding-bottom: 2rem;
+        }
+
+        .civilisation-selector-box {
+            width: 50%;
+            min-width: 300px;
+            margin-top: 20%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 3rem;
+            background-color: rgb(144, 144, 144);
+            border-radius: 2rem;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+    }
+
+    @media only screen and (min-width: 481px) {
+        .civilisation-title {
+            font-size: 5rem;
+            padding-bottom: 2rem;
+        }
+
+        .civilisation-selector-box {
+            width: 50%;
+            min-width: 300px;
+            margin-top: 5%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 3rem;
+            background-color: rgb(144, 144, 144);
+            border-radius: 2rem;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+    }
+
+    .align-center {
+        text-align: center;
+    }
+
+    .civilisation-option-box {
+        background-color: rgb(77, 35, 22);
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 5px;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    
+    .civilisation-option-title {
+        font-size: 2rem;
+        padding-bottom: 0.2rem;
+    }
+
+    .civilisation-brief {
+        text-align: justify;
+        font-size: 1.2rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .civilisation-image {
+        width: 80%;
+        border-radius: 5px;
+    }
+
+    .civilisation-choose-button {
+        width: 6rem;
+        height: 3rem;
+        border-radius: 5px;
+        font-size: 1rem;
+        border: 3px solid rgb(0, 0, 0);
+        border-style:outset;
+    }
+
+    .civilisation-choose-button:active {
+        border-style: inset;
+    }
+
+</style>
+<div class="civilisation-selector-box">
+    <p class="civilisation-title align-center">Civilisations</p>
+    <div class="civilisation-option-box align-center">
+        <p class="civilisation-option-title">Romans</p>
+        <img class="civilisation-image" src="./assets/images/civilisations/trevi-fountain-1834787_640.jpg">
+        <p class="civilisation-brief">
+            The ancient Roman Empire, centred on the city of Rome, 
+            that was established in 27 bce following the demise 
+            of the Roman Republic and continuing to the final eclipse 
+            of the Empire of the West in the 5th century ce.
+        </p>
+        <div>
+            <button class="civilisation-choose-button">Choose</button>
+        </div>
+    </div>
+</div>

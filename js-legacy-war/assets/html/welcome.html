@@ -1,36 +1,78 @@
 <style>
-    .welcome-box {
-        width: 50%;
-        min-width: 300px;
-        margin-top: 15%;
-        margin-left: auto;
-        margin-right: auto;
-        background-color: rgb(144, 144, 144);
-        border-radius: 2rem;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+    @media only screen and (max-width: 480px) {
+        .welcome-title {
+            font-size: 3rem;
+            padding-bottom: 2rem;
+        }
+
+        .welcome-box {
+            width: 50%;
+            min-width: 300px;
+            margin-top: 30%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 3rem;
+            background-color: rgb(144, 144, 144);
+            border-radius: 2rem;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+    }
+
+    @media only screen and (min-width: 481px) {
+        .welcome-title {
+            font-size: 5rem;
+            padding-bottom: 2rem;
+        }
+
+        .welcome-box {
+            width: 50%;
+            min-width: 300px;
+            margin-top: 10%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 3rem;
+            background-color: rgb(144, 144, 144);
+            border-radius: 2rem;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
     }
 
     .align-center {
         text-align: center;
     }
-
-    .welcome-title {
-        font-size: 5rem;
-        padding-bottom: 2rem;
-    }
     
     .welcome-slogan {
         font-size: 2rem;
         font-style: italic;
+        padding-bottom: 2rem;
     }
 
     .welcome-information {
         font-size: 1rem;
+        padding-bottom: 2rem;
+    }
+
+    .welcome-play-button {
+        width: 6rem;
+        height: 3rem;
+        border-radius: 5px;
+        font-size: 1rem;
+        border: 3px solid rgb(0, 0, 0);
+        border-style:outset;
+    }
+
+    .welcome-play-button:active {
+        border-style: inset;
     }
 </style>
 <div class="welcome-box">
     <p class="welcome-title align-center">Legacy War</p>
     <p class="welcome-slogan align-center">Choose from 5 civilisations to play!</p>
     <p class="welcome-information align-center">Forage, build and conquer.</p>
+    <div class="align-center">
+        <button class="welcome-play-button" onclick="loadCivilisations();">Play</button>
+    </div>
 </div>
