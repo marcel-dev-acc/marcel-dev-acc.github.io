@@ -8,4 +8,48 @@ body {
     background-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     font-family: 'Architects Daughter';
+    z-index: 0;
+    overflow: hidden;
+}
+
+.scroll-style {
+    background-color: rgb(255, 0, 0);
+    opacity: 30%;
+    z-index: 10;
+    position: fixed;
+}
+
+#top-scroll {    
+    height: 75px;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+#bottom-scroll {
+    height: 75px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+#left-scroll {
+    height: 80%;
+    width: 75px;
+    top: 10%;
+    left: 0;
+}
+
+#right-scroll {
+    height: 80%;
+    width: 75px;
+    top: 10%;
+    right: 0;
+}
+
+.moving-items {
+    z-index: 20;
+    opacity: 0%;
+    top: 0;
+    left: 0;
 }

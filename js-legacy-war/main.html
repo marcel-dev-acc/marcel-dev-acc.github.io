@@ -7,10 +7,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="./assets/css/main.css">
         <script type="text/javascript" src="./assets/js/jquery-3.6.0.js"></script>
+        <script type="text/javascript" src="./assets/js/scroll-hover.js"></script>
         <script type="text/javascript" src="game.js"></script>
         <link href='https://fonts.googleapis.com/css?family=Architects Daughter' rel='stylesheet'>
     </head>
     <body onload="loadWelcome();">
+        <div id="top-scroll" class="scroll-style"></div>
+        <div id="left-scroll" class="scroll-style"></div>
+        <div id="right-scroll" class="scroll-style"></div>
+        <div id="bottom-scroll" class="scroll-style"></div>
         <div id="root"></div>
+        <script>
+            addEventListeners();
+        </script>
     </body>
 </html>
