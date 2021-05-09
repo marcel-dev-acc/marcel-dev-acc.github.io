@@ -50,6 +50,7 @@ body {
 .moving-items {
     z-index: 20;
     opacity: 0%;
-    top: 0;
-    left: 0;
+    top: 300px;
+    left: 300px;
+    position: absolute;
 }

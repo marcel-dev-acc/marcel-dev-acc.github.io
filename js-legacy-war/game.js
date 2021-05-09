@@ -95,4 +95,87 @@ function renderJsonMap(json) {
             }
         }
     }
+    // Render Moving animals
+    loadAnimals();
+}
+
+function loadAnimals() {
+    $(document).ready(function(){
+        let windowLength = window.innerWidth;
+        let windowHeight = window.innerHeight;
+        let animalImagesFolder = './assets/images/map-assets/';
+        let wolf = 'wolf.png';
+        for (var i = 0; i < 100; i++) {
+            document.getElementById('6|6').innerHTML += (
+                '<img id="wolf-' + (i + 1).toString() + '" class="moving-items" src="' + animalImagesFolder+wolf + '"/>'
+            );
+            $('#wolf-'+(i + 1).toString())[0].style.width = '30px';
+            $('#wolf-'+(i + 1).toString())[0].style.height = '30px';
+            $('#wolf-'+(i + 1).toString())[0].style.opacity = '100%';
+            moveAnimal('wolf-'+(i + 1).toString(), 2500, 2500, 30, 30);
+        }
+    });
+}
+
+async function moveAnimal(elementID, screenWidth, screenHeight, animalWidth, animalHeight) {
+    let mapTop = 6 * 50;
+    let mapLeft = 6 * 50;
+    let leftRate = 1;
+    let topRate = 1;
+    while (true) {
+        // Handle random movement X, Y
+        var random = Math.random();
+        if (random > 0.95 && leftRate === 1) {
+            leftRate = -1;
+        } else if (random > 0.95 && leftRate === -1) {
+            leftRate = 1;
+        }
+        if (random > 0.99 && leftRate !== 0) {
+            leftRate = 0;
+        } else if (random > 0.99 && leftRate === 0) {
+            leftRate = 1;
+        } 
+        
+        var random = Math.random();
+        if (random > 0.95 && topRate === 1) {
+            topRate = -1;
+        } else if (random > 0.95 && topRate === -1) {
+            topRate = 1;
+        }
+        if (random > 0.99 && topRate !== 0) {
+            topRate = 0;
+        } else if (random > 0.99 && topRate === 0) {
+            topRate = 1;
+        }
+
+        // Control horizontal action
+        if (mapLeft > screenWidth - 4 * animalWidth) {
+            // console.log(elementID + ' will stop going right');
+            leftRate = -1;
+        }
+        if (mapLeft < 4 * animalWidth) {
+            // console.log(elementID + ' will stop going left');
+            leftRate = 1;
+        }
+        // Control vertical action
+        if (mapTop > screenHeight - 4 * animalHeight) {
+            // console.log(elementID + ' will stop going right');
+            topRate = -1;
+        }
+        if (mapTop < 4 * animalHeight) {
+            // console.log(elementID + ' will stop going left');
+            topRate = 1;
+        }
+
+        // Output movement
+        mapLeft = mapLeft + leftRate;
+        mapTop = mapTop + topRate;
+        document.getElementById(elementID).style.left = mapLeft.toString()+'px';
+        document.getElementById(elementID).style.top = mapTop.toString()+'px';
+        await sleep(5);
+    }
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
