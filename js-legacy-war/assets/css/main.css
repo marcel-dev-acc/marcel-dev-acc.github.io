@@ -14,7 +14,7 @@ body {
 
 .scroll-style {
     background-color: rgb(255, 0, 0);
-    opacity: 30%;
+    opacity: 0%;
     z-index: 10;
     position: fixed;
 }
