@@ -26,11 +26,19 @@ body {
     left: 0;
 }
 
+#top-scroll:hover {
+    cursor: move;
+}
+
 #bottom-scroll {
     height: 75px;
     width: 100%;
     bottom: 0;
     left: 0;
+}
+
+#bottom-scroll:hover {
+    cursor: move;
 }
 
 #left-scroll {
@@ -40,11 +48,19 @@ body {
     left: 0;
 }
 
+#left-scroll:hover {
+    cursor: move;
+}
+
 #right-scroll {
     height: 80%;
     width: 75px;
     top: 10%;
     right: 0;
+}
+
+#right-scroll:hover {
+    cursor: move;
 }
 
 .moving-items {

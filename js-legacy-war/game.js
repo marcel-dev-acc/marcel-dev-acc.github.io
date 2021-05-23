@@ -1,5 +1,6 @@
 /* Game code here */
 const baseUrl = 'http://127.0.0.1:5500';
+// const baseUrl = 'https://marcel-dev-acc.github.io/';
 const htmlFolder = '/js-legacy-war/assets/html/';
 const jsonMapFolder = '/js-legacy-war/assets/map/';
 
@@ -50,11 +51,20 @@ function loadCivilisations() {
 
 function designMap() {
     $(document).ready(function(){
+        $(document).on('contextmenu', function(event) {
+            event.preventDefault();
+            removeActiveTile();
+        });
         let html = '';
         for (var i = 0; i < mapGridSizeY; i++) {
             html += '<div class="map-row" id="' + (i + 1).toString() + '">';
             for (var j = 0; j < mapGridSizeX; j++) {
-                html += '<div class="map-column" id="' + (i + 1).toString() + '|' + (j + 1).toString() + '"></div>'
+                html += (
+                    '<div onclick="activateTile(\'' 
+                    + (i + 1).toString() + '_' + (j + 1).toString() 
+                    + '\');" class="map-column" id="' + (i + 1).toString()
+                    + '_' + (j + 1).toString() + '"></div>'
+                );
             }
             html += '</div>';
         }
@@ -87,11 +97,12 @@ function renderJsonMap(json) {
     };
     for (var i = 0; i < mapGridSizeY; i++) {
         for (var j = 0; j < mapGridSizeX; j++) {
-            let id = (i + 1).toString() + '|' + (j + 1).toString();
+            let id = (i + 1).toString() + '_' + (j + 1).toString();
             let mapValue = jsonMapping[json[id]];
             let html = '<img src="' + mapValue + '">';
+            $('#'+id).html(html);
             if (mapValue !== undefined) {
-                document.getElementById(id).innerHTML = html;
+                // document.getElementById(id).innerHTML = html;
             }
         }
     }
@@ -100,51 +111,62 @@ function renderJsonMap(json) {
 }
 
 function loadAnimals() {
-    $(document).ready(function(){
-        let windowLength = window.innerWidth;
-        let windowHeight = window.innerHeight;
-        let animalImagesFolder = './assets/images/map-assets/';
-        let wolf = 'wolf.png';
-        for (var i = 0; i < 100; i++) {
-            document.getElementById('6|6').innerHTML += (
-                '<img id="wolf-' + (i + 1).toString() + '" class="moving-items" src="' + animalImagesFolder+wolf + '"/>'
-            );
-            $('#wolf-'+(i + 1).toString())[0].style.width = '30px';
-            $('#wolf-'+(i + 1).toString())[0].style.height = '30px';
-            $('#wolf-'+(i + 1).toString())[0].style.opacity = '100%';
-            moveAnimal('wolf-'+(i + 1).toString(), 2500, 2500, 30, 30);
+    let windowLength = window.innerWidth;
+    let windowHeight = window.innerHeight;
+    let animalImagesFolder = './assets/images/map-assets/';
+    let wolf = 'wolf.png';
+    for (var i = 0; i < 2; i++) {
+        // the below needs to be replaced with the right selector
+        document.getElementById('6_6').innerHTML += (
+            '<img id="wolf-' + (i + 1).toString() + '" class="moving-items" src="' + animalImagesFolder+wolf + '"/>'
+        );
+        let randomX = parseInt(Math.random() * 1000);
+        while (randomX < 300) {
+            randomX = parseInt(Math.random() * 1000);
         }
-    });
+        let randomY = parseInt(Math.random() * 1000);
+        while (randomY < 300) {
+            randomY = parseInt(Math.random() * 1000);
+        }
+        // the below needs to be replaced with the right selector
+        $('#wolf-'+(i + 1).toString())[0].style.top = randomY.toString() + 'px';
+        $('#wolf-'+(i + 1).toString())[0].style.left = randomX.toString() + 'px';
+        $('#wolf-'+(i + 1).toString())[0].style.width = '15px';
+        $('#wolf-'+(i + 1).toString())[0].style.height = '15px';
+        $('#wolf-'+(i + 1).toString())[0].style.opacity = '100%';
+        moveAnimal('wolf-'+(i + 1).toString(), 2500, 2500, 30, 30);
+    }
 }
 
 async function moveAnimal(elementID, screenWidth, screenHeight, animalWidth, animalHeight) {
-    let mapTop = 6 * 50;
-    let mapLeft = 6 * 50;
+    // the below needs to be replaced with the right selector
+    let mapTop = parseInt($('#' + elementID)[0].style.top.toString().replace('px', ''));
+    let mapLeft = parseInt($('#' + elementID)[0].style.left.toString().replace('px', ''));
     let leftRate = 1;
     let topRate = 1;
     while (true) {
         // Handle random movement X, Y
         var random = Math.random();
-        if (random > 0.95 && leftRate === 1) {
+        if (random > 0.99 && leftRate === 1) {
             leftRate = -1;
-        } else if (random > 0.95 && leftRate === -1) {
+        } else if (random > 0.99 && leftRate === -1) {
             leftRate = 1;
         }
-        if (random > 0.99 && leftRate !== 0) {
+        if (random > 0.5 && leftRate !== 0) {
             leftRate = 0;
-        } else if (random > 0.99 && leftRate === 0) {
+        } else if (random > 0.95 && leftRate === 0) {
             leftRate = 1;
         } 
         
         var random = Math.random();
-        if (random > 0.95 && topRate === 1) {
+        if (random > 0.99 && topRate === 1) {
             topRate = -1;
-        } else if (random > 0.95 && topRate === -1) {
+        } else if (random > 0.99 && topRate === -1) {
             topRate = 1;
         }
-        if (random > 0.99 && topRate !== 0) {
+        if (random > 0.5 && topRate !== 0) {
             topRate = 0;
-        } else if (random > 0.99 && topRate === 0) {
+        } else if (random > 0.95 && topRate === 0) {
             topRate = 1;
         }
 
@@ -168,14 +190,35 @@ async function moveAnimal(elementID, screenWidth, screenHeight, animalWidth, ani
         }
 
         // Output movement
-        mapLeft = mapLeft + leftRate;
         mapTop = mapTop + topRate;
-        document.getElementById(elementID).style.left = mapLeft.toString()+'px';
-        document.getElementById(elementID).style.top = mapTop.toString()+'px';
-        await sleep(5);
+        mapLeft = mapLeft + leftRate;
+        $('#' + elementID).css('top', mapTop.toString() + 'px');
+        $('#' + elementID).css('left', mapLeft.toString() + 'px');
+        await sleep(100);
     }
 }
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function activateTile(index) {
+    $(document).ready(function(){
+        $('#selector').remove();
+        let row_col = index.split('_');
+        let y = (row_col[0] * mapGridSizeY - mapGridSizeY).toString() + 'px';
+        let x = (row_col[1] * mapGridSizeX - mapGridSizeX).toString() + 'px';
+        $('#map').append(
+            '<img id="selector" src="./assets/images/map-assets/selector_base.gif">'
+        );
+        $('#selector').css('top', y);
+        $('#selector').css('left', x);
+        $('#selector').css('opacity', '100%');
+    });
+}
+
+function removeActiveTile() {
+    $(document).ready(function(){
+        $('#selector').remove();
+    });
 }
