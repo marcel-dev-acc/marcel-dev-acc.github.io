@@ -3,17 +3,17 @@
 const gameWidth = 800;
 const gameHeight = 800;
 
-const screenWidth = window.innerWidth;
-const screenHeight = window.innerHeight;
+let screenWidth = window.innerWidth;
+let screenHeight = window.innerHeight;
 
 let gameTop = (screenHeight / 2) - (gameHeight / 2);
-console.log(gameTop);
+// console.log(gameTop);
 let gameBottom = (screenHeight / 2) + (gameHeight / 2);
-console.log(gameBottom);
+// console.log(gameBottom);
 let gameLeft = (screenWidth / 2) - (gameWidth / 2);
-console.log(gameLeft);
+// console.log(gameLeft);
 let gameRight = (screenWidth / 2) + (gameWidth / 2);
-console.log(gameRight);
+// console.log(gameRight);
 
 const carNumber = 1;
 let rotationRate = 2;
@@ -26,7 +26,12 @@ let maxSpeed = 2;
 let minSpeed = 0;
 
 function run() {
+    screenWidth = window.innerWidth;
+    screenHeight = window.innerHeight;
+    gameLeft = (screenWidth / 2) - (gameWidth / 2);
+    gameRight = (screenWidth / 2) + (gameWidth / 2);
     if (setGameArea()) {
+        setTrack();
         createCar(carNumber);
         carMoveLoop();
     }
@@ -52,14 +57,28 @@ function setGameArea() {
     return true;
 }
 
+function setTrack() {
+    document.getElementById('root').innerHTML = '<img class="track-image" src="./assets/images/track-1.jpg"/>';
+}
+
 function createCar(i) {
-    let carWidth = 100;
-    let carHeight = 100;
+    let carLeftOffset = 0;
+    let carBottomOffset = 0;
+    if (gameWidth == 800 && gameHeight == 800) {
+        carLeftOffset = 85;
+        carBottomOffset = 400;    
+    }
     zIndex = i * 10;
-    document.getElementById('root').innerHTML += '<div id="car-'+i.toString()+'" class="car"></div>';
+    document.getElementById('root').innerHTML += `
+        <div id="car-`+i.toString()+`" class="car">
+            <img src="./assets/images/car-green.png" style="width: 100%;"/>
+        </div>`;
     document.getElementById('car-'+i.toString()).style.zIndex = zIndex;
-    document.getElementById('car-'+i.toString()).style.left = (gameLeft + carWidth).toString() + 'px';
-    document.getElementById('car-'+i.toString()).style.bottom = (gameTop + carHeight).toString() + 'px';
+    document.getElementById('car-'+i.toString()).style.left = (gameLeft + carLeftOffset).toString() + 'px';
+    document.getElementById('car-'+i.toString()).style.bottom = (gameTop + carBottomOffset).toString() + 'px';
+    if (gameWidth == 0 && gameHeight == 0) {
+        document.getElementById('car-'+i.toString()).style.display = 'none';
+    }
 }
 
 function sleep(ms) {
@@ -68,8 +87,13 @@ function sleep(ms) {
 
 async function carMoveLoop() {
     while (true) {
-        moveCar(carNumber, carSpeed)
-        await sleep(1);
+        try {
+            moveCar(carNumber, carSpeed)
+            await sleep(1);
+        } catch(_error) {
+            console.log(_error);
+            break;
+        }
     }
 }
 
@@ -88,8 +112,8 @@ function moveCar(i, speed) {
         x = Math.sin(degreesToRadians(currentRotation)) * speed;
     }
     if (currentRotation === 45) {
-        y = 2 ^ 0.5 / 2 * speed * 0.5;
-        x = 2 ^ 0.5 / 2 * speed * 0.5;
+        y = Math.sin(degreesToRadians(45)) * speed;
+        x = Math.cos(degreesToRadians(45)) * speed;
     }
     if (currentRotation > 45 && currentRotation < 90) {
         let angle = 90 - currentRotation;
@@ -106,8 +130,8 @@ function moveCar(i, speed) {
         x = Math.cos(degreesToRadians(angle)) * speed;
     }
     if (currentRotation === 135) {
-        y = -1 * 2 ^ 0.5 / 2 * speed * 0.5;
-        x = 2 ^ 0.5 / 2 * speed * 0.5;
+        y = -1 * Math.sin(degreesToRadians(45)) * speed;
+        x = Math.cos(degreesToRadians(45)) * speed;
     }
     if (currentRotation > 135 && currentRotation < 180) {
         let angle = 180 - currentRotation;
@@ -124,8 +148,8 @@ function moveCar(i, speed) {
         x = -1 * Math.sin(degreesToRadians(angle)) * speed;
     }
     if (currentRotation === 225) {
-        y = -1 * 2 ^ 0.5 / 2 * speed * 0.5;
-        x = -1 * 2 ^ 0.5 / 2 * speed * 0.5;
+        y = -1 * Math.cos(degreesToRadians(45)) * speed;
+        x = -1 * Math.sin(degreesToRadians(45)) * speed;
     }
     if (currentRotation > 225 && currentRotation < 270) {
         let angle = 270 - currentRotation;
@@ -142,8 +166,8 @@ function moveCar(i, speed) {
         x = -1 * Math.cos(degreesToRadians(angle)) * speed;
     }
     if (currentRotation === 315) {
-        y = 2 ^ 0.5 / 2 * speed * 0.5;
-        x = -1 * 2 ^ 0.5 / 2 * speed * 0.5;
+        y = Math.sin(degreesToRadians(45)) * speed;
+        x = -1 * Math.cos(degreesToRadians(45)) * speed;
     }
     if (currentRotation > 315 && currentRotation < 360) {
         let angle = 360 - currentRotation;
@@ -167,46 +191,104 @@ function rotateCar(i, clockWise) {
     if (currentRotation < 0) {
         currentRotation = 360 + currentRotation;
     }
-    console.log(currentRotation);
+    // console.log(currentRotation);
     document.getElementById('car-'+i.toString()).style.transform = 'rotate('+currentRotation.toString()+'deg)';
 }
 
-document.addEventListener('keydown', function(event) {
+let accelerateKeyIsDown = false;
+let decelerateKeyIsDown = false;
+let turnRightKeyIsDown = false;
+let turnLeftKeyIsDown = false;
+
+let keepAccelerating = true;
+let keepDecelerating = true;
+let keepTurningLeft = true;
+let keepTurningRight = true;
+
+// Used to initiate a continuous action
+document.addEventListener('keydown', async function(event) {
+    // console.log(event);
+    if (accelerateKeyIsDown === false) {
+        if (event.key === 'ArrowUp' || event.key === 'w') {
+            accelerateKeyIsDown = true;
+            keepAccelerating = true;
+            while (keepAccelerating === true) {
+                carSpeed = carSpeed + carAccelerationRate;
+                if (carSpeed > maxSpeed) {
+                    carSpeed = maxSpeed;
+                }
+                await sleep(10);
+            }
+        }
+    }
+    
+    if (decelerateKeyIsDown === false) {
+        if (event.key === 'ArrowDown' || event.key === 's') {
+            keepDecelerating = true;
+            while (keepDecelerating === true) {
+                carSpeed = carSpeed - carAccelerationRate;
+                if (carSpeed < minSpeed) {
+                    carSpeed = minSpeed;
+                }
+                await sleep(10);
+            }
+        }
+    }
+    
+    if (turnRightKeyIsDown === false) {
+        if (event.key === 'ArrowRight' || event.key === 'd') {
+            turnRightKeyIsDown = true;
+            keepTurningRight = true;
+            while (keepTurningRight === true) {
+                rotateCar(carNumber, rotationRate);
+                await sleep(10);
+            }
+        }
+    }
+    
+    if (turnLeftKeyIsDown === false) {
+        if (event.key === 'ArrowLeft' || event.key === 'a') {
+            turnLeftKeyIsDown = true;
+            keepTurningLeft = true;
+            while (keepTurningLeft === true) {
+                rotateCar(carNumber, -rotationRate);
+                await sleep(10);
+            }
+        }
+    }
+    
+}, false);
+
+// Used to cancel the above event
+document.addEventListener('keyup', function(event) {
     // console.log(event);
     if (event.key === 'ArrowUp' || event.key === 'w') {
-        // console.log('ArrowUp');
-        // if (carAccelerationRate < 0) {
-        //     carAccelerationRate = 0;
-        // }
-        // if (carAccelerationRate < maxAcceleration) {
-        //     carAccelerationRate += carAccelerationRate;
-        // }
-        carSpeed = carSpeed + carAccelerationRate;
-        if (carSpeed > maxSpeed) {
-            carSpeed = maxSpeed;
-        }
-        console.log(carSpeed);
+        accelerateKeyIsDown = false;
+        keepAccelerating = false;
     }
     if (event.key === 'ArrowDown' || event.key === 's') {
-        // console.log('ArrowDown');
-        // if (carAccelerationRate > 0) {
-        //     carAccelerationRate = 0;
-        // }
-        // if (carAccelerationRate > maxDeceleration) {
-        //     carAccelerationRate -= carAccelerationRate;
-        // }
-        carSpeed = carSpeed - carAccelerationRate;
-        if (carSpeed < minSpeed) {
-            carSpeed = minSpeed;
-        }
-        console.log(carSpeed);
+        decelerateKeyIsDown = false;
+        keepDecelerating = false;
     }
     if (event.key === 'ArrowRight' || event.key === 'd') {
-        // console.log('ArrowRight');
-        rotateCar(carNumber, rotationRate);
+        turnRightKeyIsDown = false;
+        keepTurningRight = false;
     }
     if (event.key === 'ArrowLeft' || event.key === 'a') {
-        // console.log('ArrowLeft');
-        rotateCar(carNumber, -rotationRate);
+        turnLeftKeyIsDown = false;
+        keepTurningLeft = false;
     }
 }, false);
+
+window.addEventListener('resize', function(event) {
+    // console.log(event);
+    let newWindowWidth = window.innerWidth;
+    let newWindowHeight = window.innerHeight;
+    if (screenWidth != newWindowWidth || screenHeight != newWindowHeight) {
+        document.getElementById('root').innerHTML = `
+            <div style="width: `+(newWindowWidth * 0.5).toString()+`px;" class="game-size-change">
+                <p class="screen-size-change-warning">The screen dimensions have changed.</p>
+                <p onclick="run();" class="reset-game-width-change-button">Reset Game</p>
+            </div>`;
+    }
+});

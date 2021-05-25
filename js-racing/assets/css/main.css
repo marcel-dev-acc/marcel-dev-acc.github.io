@@ -4,18 +4,66 @@
     border: 0;
 }
 
+body {
+    font-family:sans-serif;
+    background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pwo-wiki.info%2Fimages%2F4%2F46%2FGrass_comparison.png&f=1&nofb=1');
+}
+
 #root {
-    background-color: rgb(36, 172, 43);
+    /* background-color: rgb(36, 172, 43); */
     z-index: 0;
     margin-left: auto;
     margin-right: auto;
 }
 
 .car {
-    width: 50px;
+    width: 25px;
     height: 50px;
-    background-color: rgb(0, 0, 0);
+    /* background-color: rgb(0, 0, 0); */
     position: absolute;
     left: 100px;
     bottom: 100px;
+}
+
+.track-image {
+    border-radius: 10px;;
+}
+
+.game-size-change {
+    margin-top: 40%;
+    text-align: center;
+    min-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    border: solid rgb(71, 109, 192) 2px;
+}
+
+.reset-game-width-change-button {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border: solid 2px rgb(0, 0, 0);
+    border-radius: 10px;
+    background-color: rgb(106, 106, 250);
+    color: white;
+    font-weight: 900;
+    font-size: large;
+}
+
+.reset-game-width-change-button:hover {
+    cursor: pointer;
+    font-size: larger;
+    padding-top: 19px;
+    padding-bottom: 20px;
+    
+}
+
+.screen-size-change-warning {
+    font-size: 2rem;
 }
