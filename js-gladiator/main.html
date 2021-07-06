@@ -1,0 +1,77 @@
+<!-- Game GUI here -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Gladiator</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+        <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+        <link href="/assets/css/main.css" rel="stylesheet" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
+        <script type="text/javascript" src="game.js"></script>
+    </head>
+    <body>
+        <div id="root">
+        </div>
+        <div id="fight-screen">
+            <!-- Hit points -->
+            <div style="height: 10vh;" class="m-2 animate__animated animate__fadeInLeft">
+                <progress style="width: 45%; height: 20px" class="nes-progress is-success" value="50" max="100"></progress>
+                <progress style="width: 45%; height: 20px" class="nes-progress is-warning" value="30" max="100"></progress>
+                <progress style="width: 45%; height: 20px" class="nes-progress is-error" value="10" max="100"></progress>
+            </div>
+            <!-- Game view -->
+            <div style="height: 30vh;" id="game-view" class="m-2">
+                <canvas></canvas>
+            </div>
+            <!-- selection menu -->
+            <div style="height: 25vh;" class="nes-container with-title m-2">
+                <p id="selection-menu-title" class="title">Attack</p>
+                <div class="nes-table-responsive">
+                    <table class="nes-table is-bordered is-centered">
+                      <tbody>
+                        <tr>
+                          <td id="attack-option-1" style="background-color: rgb(140, 140, 255);">Spit</td>
+                          <td id="attack-option-2">Swing Sword</td>
+                        </tr>
+                        <tr>
+                          <td id="attack-option-3">Throw rock</td>
+                          <td id="attack-option-4">Punch</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+            </div>
+
+            <!-- Button box -->
+            <div style="height: 30vh;" class="nes-container is-rounded is-dark ml-2 m-2 animate__animated animate__fadeInUp">
+                <div style="margin-top: 5%;" class="row">
+                    <div class="col" style="position: relative;">
+                        <div id="game-nav-vertical-1" class="nes-container is-rounded is-dark animate__animated animate__pulse">
+                            <p>△</p>
+                        </div>
+                        <div id="game-nav-vertical-2" class="nes-container is-rounded is-dark animate__animated animate__pulse">
+                            <p>▽</p>
+                        </div>
+                        <div id="game-nav-horizontal-1" class="nes-container is-rounded is-dark animate__animated animate__pulse">
+                            <p>◁</p>
+                        </div>
+                        <div id="game-nav-horizontal-2" class="nes-container is-rounded is-dark animate__animated animate__pulse">
+                            <p>▷</p>
+                        </div>
+                        <div id="game-nav-center" class="nes-container is-rounded is-dark"></div>
+                    </div>
+                    <div class="col">
+                        <button style="margin-left: 20px;" type="button" class="nes-btn is-success">A</button>
+                        <button style="margin-top: 50%;" type="button" class="nes-btn is-error">B</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
