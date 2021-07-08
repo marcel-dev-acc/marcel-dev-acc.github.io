@@ -90,3 +90,30 @@ td {
     height: 50px;
     width: 50px;
 }
+
+.attack-options {
+    font-size: 12px;
+}
+
+#game-canvas {
+    width: 355px;
+    height: 180px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sprite-sheet {
+    display: none;
+}
+
+.game-background {
+    display: none;
+}
+
+.player-head {
+    display: none;
+}
+
+.active-attack {
+    background-color: rgba(11, 90, 0, 0.349);
+}

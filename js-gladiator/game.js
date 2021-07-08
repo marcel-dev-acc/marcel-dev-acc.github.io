@@ -1,2 +1,0 @@
-/* Game code here */
-

@@ -13,21 +13,38 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
         />
-        <script type="text/javascript" src="game.js"></script>
+        <script type="text/javascript" src="/assets/js/game.js"></script>
     </head>
-    <body>
+    <body onload="setup();">
         <div id="root">
         </div>
         <div id="fight-screen">
             <!-- Hit points -->
-            <div style="height: 10vh;" class="m-2 animate__animated animate__fadeInLeft">
-                <progress style="width: 45%; height: 20px" class="nes-progress is-success" value="50" max="100"></progress>
-                <progress style="width: 45%; height: 20px" class="nes-progress is-warning" value="30" max="100"></progress>
-                <progress style="width: 45%; height: 20px" class="nes-progress is-error" value="10" max="100"></progress>
+            <div style="height: 12vh;" class="m-2 animate__animated animate__fadeInLeft">
+                <div class="row m-0">
+                    <div class="col m-0 p-0 pr-2 text-left">
+                        <p class="m-0">Opponent</p>
+                        <progress id="opponent-hp" style="width: 100%; height: 20px" class="nes-progress is-success" value="100" max="100"></progress>
+                        <p class="m-0">LVL: 1</p>
+                    </div>
+                    <div class="col m-0 p-0 pr-2 pl-2 text-right">
+                        <p class="m-0">Player</p>
+                        <progress id="player-hp" style="width: 100%; height: 20px" class="nes-progress is-success" value="100" max="100"></progress>
+                        <p class="m-0">LVL: 1</p>
+                    </div>
+                </div>
             </div>
             <!-- Game view -->
-            <div style="height: 30vh;" id="game-view" class="m-2">
-                <canvas></canvas>
+            <div id="game-view" style="height: 26vh;" class="m-2 animate__animated animate__fadeInLeft">
+                <canvas id="game-canvas" width="355" height="180" class=""></canvas>
+                <div class="row m-0 p-0">
+                    <div class="col m-0 p-0">
+                        <p class="mb-0">XP:</p>
+                    </div>
+                    <div class="col m-0 p-0">
+                        <progress style="height: 15px; width: 300px" class="nes-progress is-primary" value="0" max="100"></progress>
+                    </div>
+                </div>
             </div>
             <!-- selection menu -->
             <div style="height: 25vh;" class="nes-container with-title m-2">
@@ -36,12 +53,12 @@
                     <table class="nes-table is-bordered is-centered">
                       <tbody>
                         <tr>
-                          <td id="attack-option-1" style="background-color: rgb(140, 140, 255);">Spit</td>
-                          <td id="attack-option-2">Swing Sword</td>
+                          <td id="attack-option-1" class="attack-options active-attack">Spit</td>
+                          <td id="attack-option-2" class="attack-options">Swing Sword</td>
                         </tr>
                         <tr>
-                          <td id="attack-option-3">Throw rock</td>
-                          <td id="attack-option-4">Punch</td>
+                          <td id="attack-option-3" class="attack-options">Throw rock</td>
+                          <td id="attack-option-4" class="attack-options">Punch</td>
                         </tr>
                       </tbody>
                     </table>
@@ -49,28 +66,35 @@
             </div>
 
             <!-- Button box -->
-            <div style="height: 30vh;" class="nes-container is-rounded is-dark ml-2 m-2 animate__animated animate__fadeInUp">
+            <div style="height: 30vh;" class="nes-container is-rounded is-dark ml-2 m-2">
                 <div style="margin-top: 5%;" class="row">
                     <div class="col" style="position: relative;">
-                        <div id="game-nav-vertical-1" class="nes-container is-rounded is-dark animate__animated animate__pulse">
+                        <div id="game-nav-vertical-1" class="nes-container is-rounded is-dark">
                             <p>△</p>
                         </div>
-                        <div id="game-nav-vertical-2" class="nes-container is-rounded is-dark animate__animated animate__pulse">
+                        <div id="game-nav-vertical-2" class="nes-container is-rounded is-dark">
                             <p>▽</p>
                         </div>
-                        <div id="game-nav-horizontal-1" class="nes-container is-rounded is-dark animate__animated animate__pulse">
+                        <div id="game-nav-horizontal-1" class="nes-container is-rounded is-dark">
                             <p>◁</p>
                         </div>
-                        <div id="game-nav-horizontal-2" class="nes-container is-rounded is-dark animate__animated animate__pulse">
+                        <div id="game-nav-horizontal-2" class="nes-container is-rounded is-dark">
                             <p>▷</p>
                         </div>
                         <div id="game-nav-center" class="nes-container is-rounded is-dark"></div>
                     </div>
                     <div class="col">
-                        <button style="margin-left: 20px;" type="button" class="nes-btn is-success">A</button>
-                        <button style="margin-top: 50%;" type="button" class="nes-btn is-error">B</button>
+                        <button id="A-button" style="margin-left: 20px;" type="button" class="nes-btn is-success">A</button>
+                        <button id="B-button" style="margin-top: 50%;" type="button" class="nes-btn is-error">B</button>
                     </div>
                 </div>
+            </div>
+
+            <!-- Load images into here -->
+            <div>
+                <img id="gladiator-opponent" class="sprite-sheet" src="/assets/images/sprites/gladiator-opponent-sprite.png"/>
+                <img id="sand-background" class="game-background" src="/assets/images/terrain/sand.png"/>
+                <img id="player-back-of-head-helmet" class="player-head" src="/assets/images/general/player-back-of-helmet.png"/>
             </div>
         </div>
     </body>
