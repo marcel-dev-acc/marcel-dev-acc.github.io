@@ -16,99 +16,101 @@
         <script type="text/javascript" src="./assets/js/game.js"></script>
     </head>
     <body onload="setup();">
-        <div id="root">
-        </div>
-        <div id="fight-screen">
-            <!-- Hit points -->
-            <div id="game-stats-placeholder" style="height: 12vh;"></div>
-            <div id="game-stats" style="height: 12vh; display: none;" class="m-2">
-                <div class="row m-0">
-                    <div class="col m-0 p-0 pr-2 text-left">
-                        <p class="m-0">Opponent</p>
-                        <progress id="opponent-hp" style="width: 100%; height: 20px" class="nes-progress is-success" value="100" max="100"></progress>
-                        <p class="m-0">LVL: <span id="opponent-level">1</span></p>
-                    </div>
-                    <div class="col m-0 p-0 pr-2 pl-2 text-right">
-                        <p class="m-0">Player</p>
-                        <progress id="player-hp" style="width: 100%; height: 20px" class="nes-progress is-success" value="100" max="100"></progress>
-                        <p class="m-0">LVL: <span id="player-level">1</span></p>
+        <div class="inner-body">
+            <div id="root">
+            </div>
+            <div id="fight-screen">
+                <!-- Hit points -->
+                <div id="game-stats-placeholder" style="height: 12vh;"></div>
+                <div id="game-stats" style="height: 12vh; display: none;" class="m-2">
+                    <div class="row m-0">
+                        <div class="col m-0 p-0 pr-2 text-left">
+                            <p class="m-0">Opponent</p>
+                            <progress id="opponent-hp" style="width: 100%; height: 20px" class="nes-progress is-success" value="100" max="100"></progress>
+                            <p class="m-0">LVL: <span id="opponent-level">1</span></p>
+                        </div>
+                        <div class="col m-0 p-0 pr-2 pl-2 text-right">
+                            <p class="m-0">Player</p>
+                            <progress id="player-hp" style="width: 100%; height: 20px" class="nes-progress is-success" value="100" max="100"></progress>
+                            <p class="m-0">LVL: <span id="player-level">1</span></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Game view -->
-            <div id="game-view-placeholder" style="height: 28vh;"></div>
-            <div id="game-view" style="height: 26vh; display: none;" class="m-2">
-                <canvas id="game-canvas" width="355" height="180" class=""></canvas>
-                <div class="row m-0 p-0">
-                    <div class="col m-0 p-0">
-                        <p class="mb-0">XP:</p>
-                    </div>
-                    <div class="col m-0 p-0">
-                        <progress id="player-xp" style="height: 15px; width: 300px" class="nes-progress is-primary" value="0" max="100"></progress>
+                <!-- Game view -->
+                <div id="game-view-placeholder" style="height: 28vh;"></div>
+                <div id="game-view" style="height: 26vh; display: none;" class="m-2">
+                    <canvas id="game-canvas" width="355" height="180" class=""></canvas>
+                    <div class="row m-0 p-0">
+                        <div class="col m-0 p-0">
+                            <p class="mb-0">XP:</p>
+                        </div>
+                        <div class="col m-0 p-0">
+                            <progress id="player-xp" style="height: 15px; width: 300px" class="nes-progress is-primary" value="0" max="100"></progress>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Dialogue menu -->
-            <div id="battle-dialogue-section" style="height: 25vh;" class="nes-container m-2 p-2">
-                <section class="message-list">
-                    <section class="message -left">
-                      <!-- Balloon -->
-                      <div class="nes-balloon from-left">
-                        <p id="dialogue-text" style="font-size: 10px;">
-                            Gor is challenging you to a battle. Beat Gor for the glory of Greece!
-                        </p>
-                      </div>
+                <!-- Dialogue menu -->
+                <div id="battle-dialogue-section" style="height: 25vh;" class="nes-container m-2 p-2">
+                    <section class="message-list">
+                        <section class="message -left">
+                          <!-- Balloon -->
+                          <div class="nes-balloon from-left">
+                            <p id="dialogue-text" style="font-size: 10px;">
+                                Gor is challenging you to a battle. Beat Gor for the glory of Greece!
+                            </p>
+                          </div>
+                        </section>
                     </section>
-                </section>
-            </div>
-            <!-- selection menu -->
-            <div id="attack-selection-menu" style="height: 25vh; display: none;" class="nes-container with-title m-2">
-                <p id="selection-menu-title" class="title">Attack</p>
-                <div class="nes-table-responsive">
-                    <table class="nes-table is-bordered is-centered">
-                      <tbody>
-                        <tr>
-                          <td id="attack-option-1" class="attack-options active-attack">Spit</td>
-                          <td id="attack-option-2" class="attack-options">Swing Sword</td>
-                        </tr>
-                        <tr>
-                          <td id="attack-option-3" class="attack-options">Throw rock</td>
-                          <td id="attack-option-4" class="attack-options">Punch</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-            </div>
-            <!-- Button box -->
-            <div style="height: 30vh;" class="nes-container is-rounded is-dark ml-2 m-2">
-                <div style="margin-top: 5%;" class="row">
-                    <div class="col" style="position: relative;">
-                        <div id="game-nav-vertical-1" class="nes-container is-rounded is-dark">
-                            <p>△</p>
+                </div>
+                <!-- selection menu -->
+                <div id="attack-selection-menu" style="height: 25vh; display: none;" class="nes-container with-title m-2">
+                    <p id="selection-menu-title" class="title">Attack</p>
+                    <div class="nes-table-responsive">
+                        <table class="nes-table is-bordered is-centered">
+                          <tbody>
+                            <tr>
+                              <td id="attack-option-1" class="attack-options active-attack">Spit</td>
+                              <td id="attack-option-2" class="attack-options">Swing Sword</td>
+                            </tr>
+                            <tr>
+                              <td id="attack-option-3" class="attack-options">Throw rock</td>
+                              <td id="attack-option-4" class="attack-options">Punch</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                </div>
+                <!-- Button box -->
+                <div style="height: 30vh;" class="nes-container is-rounded is-dark ml-2 m-2">
+                    <div style="margin-top: 5%;" class="row">
+                        <div class="col" style="position: relative;">
+                            <div id="game-nav-vertical-1" class="nes-container is-rounded is-dark">
+                                <p>△</p>
+                            </div>
+                            <div id="game-nav-vertical-2" class="nes-container is-rounded is-dark">
+                                <p>▽</p>
+                            </div>
+                            <div id="game-nav-horizontal-1" class="nes-container is-rounded is-dark">
+                                <p>◁</p>
+                            </div>
+                            <div id="game-nav-horizontal-2" class="nes-container is-rounded is-dark">
+                                <p>▷</p>
+                            </div>
+                            <div id="game-nav-center" class="nes-container is-rounded is-dark"></div>
                         </div>
-                        <div id="game-nav-vertical-2" class="nes-container is-rounded is-dark">
-                            <p>▽</p>
+                        <div class="col">
+                            <button id="A-button" style="margin-left: 20px;" type="button" class="nes-btn is-success">A</button>
+                            <button id="B-button" style="margin-top: 50%;" type="button" class="nes-btn is-error">B</button>
                         </div>
-                        <div id="game-nav-horizontal-1" class="nes-container is-rounded is-dark">
-                            <p>◁</p>
-                        </div>
-                        <div id="game-nav-horizontal-2" class="nes-container is-rounded is-dark">
-                            <p>▷</p>
-                        </div>
-                        <div id="game-nav-center" class="nes-container is-rounded is-dark"></div>
-                    </div>
-                    <div class="col">
-                        <button id="A-button" style="margin-left: 20px;" type="button" class="nes-btn is-success">A</button>
-                        <button id="B-button" style="margin-top: 50%;" type="button" class="nes-btn is-error">B</button>
                     </div>
                 </div>
-            </div>
-
-            <!-- Load images into here -->
-            <div>
-                <img id="gladiator-opponent" class="sprite-sheet" src="./assets/images/sprites/gladiator-opponent-sprite.png"/>
-                <img id="sand-background" class="game-background" src="./assets/images/terrain/sand.png"/>
-                <img id="player-back-of-head-helmet" class="player-head" src="./assets/images/general/player-back-of-helmet.png"/>
+    
+                <!-- Load images into here -->
+                <div>
+                    <img id="gladiator-opponent" class="sprite-sheet" src="./assets/images/sprites/gladiator-opponent-sprite.png"/>
+                    <img id="sand-background" class="game-background" src="./assets/images/terrain/sand.png"/>
+                    <img id="player-back-of-head-helmet" class="player-head" src="./assets/images/general/player-back-of-helmet.png"/>
+                </div>
             </div>
         </div>
     </body>
