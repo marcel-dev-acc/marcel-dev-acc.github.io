@@ -19,9 +19,34 @@
         <div class="inner-body">
             <div id="root">
             </div>
+            <div id="map-screen">
+                <!-- Game details -->
+                <div id="game-stats" style="height: 12vh;" class="m-2">
+                    <div class="row m-0">
+                        <div id="time-details">
+                            <p class="m-0 p-0">Date: <span id="game-date-display"></span></p>
+                            <p class="m-0 p-0">Time: <span id="game-time-display">14:00</span></p>
+                            <p class="m-0 p-0">Time of day: <span id="game-time-of-day-display">Midday</span></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Map view -->
+                <div id="map-view-placeholder" style="height: 28vh;"></div>
+                <div id="map-view" style="height: 26vh; display: none;" class="m-2">
+                    <canvas id="map-canvas" width="355" height="180" class=""></canvas>
+                    <div class="row m-0 p-0">
+                        <div class="col m-0 p-0">
+                            <p class="mb-0">XP:</p>
+                        </div>
+                        <div class="col m-0 p-0">
+                            <progress id="player-xp" style="height: 15px; width: 300px" class="nes-progress is-primary" value="0" max="100"></progress>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="fight-screen">
                 <!-- Hit points -->
-                <div id="game-stats-placeholder" style="height: 12vh;"></div>
+                <div id="game-stats-placeholder" style="height: 12vh; display: none;"></div>
                 <div id="game-stats" style="height: 12vh; display: none;" class="m-2">
                     <div class="row m-0">
                         <div class="col m-0 p-0 pr-2 text-left">
@@ -37,7 +62,7 @@
                     </div>
                 </div>
                 <!-- Game view -->
-                <div id="game-view-placeholder" style="height: 28vh;"></div>
+                <div id="game-view-placeholder" style="height: 28vh; display: none;"></div>
                 <div id="game-view" style="height: 26vh; display: none;" class="m-2">
                     <canvas id="game-canvas" width="355" height="180" class=""></canvas>
                     <div class="row m-0 p-0">
@@ -56,7 +81,7 @@
                           <!-- Balloon -->
                           <div class="nes-balloon from-left">
                             <p id="dialogue-text" style="font-size: 10px;">
-                                Gor is challenging you to a battle. Beat Gor for the glory of Greece!
+                                Welcome to Greece! You are about to embark on a courageous journey. Are you ready to begin?
                             </p>
                           </div>
                         </section>

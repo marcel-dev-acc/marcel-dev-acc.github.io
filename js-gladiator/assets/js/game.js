@@ -1,5 +1,6 @@
 /* Game code here */
 import { setupLocalVariables } from './utils/manageVariables.js';
+import { maintainGameStats } from './utils/utils.js';
 import { upButtonSetup } from './buttons/upButton.js';
 import { downButtonSetup } from './buttons/downButton.js';
 import { leftButtonSetup } from './buttons/leftButton.js';
@@ -19,7 +20,7 @@ function setup() {
         // Set local variables setLocalVariables
         setupLocalVariables();
 
-        document.getElementById("dialogue-text").innerHTML = "Gor is challenging you to a battle. Beat Gor for the glory of Greece!";
+        maintainGameStats();
 
         // Up Button
         upButtonSetup();

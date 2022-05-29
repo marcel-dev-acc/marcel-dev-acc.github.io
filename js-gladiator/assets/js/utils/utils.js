@@ -60,4 +60,29 @@ async function blackOutCanvas() {
     await sleep(4500);
 }
 
-export { sleep, blackOutCanvas };
+
+async function maintainDate() {
+    while (true) {   
+        let currentDateTime = new Date();
+        document.getElementById('game-date-display').innerHTML = currentDateTime.toLocaleDateString();
+        console.log("Setting date");
+        sleep(1000);
+        break;
+    }
+}
+
+async function maintainTime() {
+    sleep(1000);
+}
+
+async function maintainTimeOfDay() {
+    sleep(1000);
+}
+
+async function maintainGameStats() {
+    maintainDate();
+    maintainTime();
+    maintainTimeOfDay();
+}
+
+export { sleep, blackOutCanvas, maintainGameStats };

@@ -19,6 +19,7 @@ function aButtonSetup() {
         processesBlocked = true;
 
         if (activeWindow == "battle-dialogue") {
+            // document.getElementById("dialogue-text").innerHTML = "Gor is challenging you to a battle. Beat Gor for the glory of Greece!";
             // Set total HP
             let opponentHP = 10
             setVar('opponentHP', opponentHP);
